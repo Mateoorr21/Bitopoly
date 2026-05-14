@@ -1,0 +1,4 @@
+Ganador: Mateo           | Turnos totales: 20
+Ganador: Mateo           | Turnos totales: 18
+Ganador: Akemi           | Turnos totales: 17
+Ganador: Darío           | Turnos totales: 23
