@@ -16,16 +16,6 @@
 #define TAM 20          // tamaño del tablero
 #define NUMJUGADORES 2 // cantidad de jugadores
 
-// Macro para detener el flujo de ejución después de un turno
-#define ESPERA() \
-    printf("Presione la tecla [ENTER] para CONTINUAR...\n"); \
-    fflush(stdin); \
-    getchar(); // obtenemos un caracter (caracter \n para continuar)
-// Macro para limpiar pantalla usando system("cls") de stdlib.h
-#define CLEAN() system("cls");
-// Macro para un salto de línea
-#define ENTER() printf("\n");
-
 // Función para captuar los nombres de los jugadores
 void capturar_nombres(Jugador jugadores[]) {
     // for que recorre la cantidad de jugadores
@@ -278,8 +268,8 @@ void imprimir_tablero(Jugador jugadores[]){
 }
 
 // función para controlar el flujo del juego
-void ejecutar_juego(Casilla tablero[], Jugador jugadores[], int turno) {
-    int dado = 0, turnosTotales = 0; // dado y turnos total
+void ejecutar_juego(Casilla tablero[], Jugador jugadores[], int turno, int turnosTotales) {
+    int dado = 0; // dado
     // mientras los dos jugadores no se encuentren en bancarrota
     // hay un siguiente turno
     while (jugadores[0].estado && jugadores[1].estado) { 
@@ -312,7 +302,7 @@ void ejecutar_juego(Casilla tablero[], Jugador jugadores[], int turno) {
         // si el jugador actual no está en bancarrota
         if(jugadores[turno].estado == 1)  {
             turno = (turno == 0) ? 1 : 0; // operador ternario para cambiar turno
-            guardar_partida(tablero, jugadores, turno); // guardamos la partida
+            guardar_partida(tablero, jugadores, turno, turnosTotales); // guardamos la partida
         }
         ESPERA(); 
         CLEAN();
@@ -369,8 +359,8 @@ void mostrar_reglas() {
 }
 
 // función para guardar la partida después de cada turno realizado
-// no usamos puntero en turno porque solo queremos el valor contenido en la direccion
-void guardar_partida(Casilla tablero[], Jugador jugadores[], int turno) {
+// no usamos puntero en turno ni turnosTotales porque solo queremos el valor contenido en la direccion
+void guardar_partida(Casilla tablero[], Jugador jugadores[], int turno, int turnosTotales) {
     // abrimos el archivo bitopoly_save.dat con fopen
     // pasamos parametro wb para abrir en modo escritura binaria
     // crea el archivo si no existe, si existe borra su contenido
@@ -385,12 +375,13 @@ void guardar_partida(Casilla tablero[], Jugador jugadores[], int turno) {
     fwrite(tablero, sizeof(Casilla), 20, archivo); // tablero
     fwrite(jugadores, sizeof(Jugador), 2, archivo); // jugadores
     fwrite(&turno, sizeof(int), 1, archivo); // turno actual
+    fwrite(&turnosTotales, sizeof(int), 1, archivo); // turnos totales
     fclose(archivo); // cerramose el archivo
 }
 
 // función para cargar una partida que se ha iniciado
-// se utiliza el puntero de turno para modificar su valor con el contenido en el archivo
-void cargar_partida(Casilla tablero[], Jugador jugadores[], int *turno) {
+// se utiliza el puntero de turno y turnosTotales para modificar su valor con el contenido en el archivo
+void cargar_partida(Casilla tablero[], Jugador jugadores[], int *turno, int *turnosTotales) {
     // abrimos el archivo en modo rb de lectura binaria
     FILE *archivo = fopen("datos/bitopoly_save.dat", "rb");
     if (archivo == NULL) { // si no hay partida error
@@ -405,10 +396,12 @@ void cargar_partida(Casilla tablero[], Jugador jugadores[], int *turno) {
         fread(jugadores, sizeof(Jugador), 2, archivo);
         // Cargamos el turno actual
         fread(turno, sizeof(int), 1, archivo);
+        // Cargamos los turnos totales
+        fread(turnosTotales, sizeof(int), 1, archivo);
         fclose(archivo); // Cerramos el archivo con los datos
         printf("PARTIDA CARGADA EXITOSAMENTE\n");
-        // Llamar a la función para el ciclo del juego
-        ejecutar_juego(tablero, jugadores, *turno);
+        // Llamar a la función para el ciclo del juego (* para pasar valor)
+        ejecutar_juego(tablero, jugadores, *turno, *turnosTotales);
     }
 }
 

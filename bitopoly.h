@@ -7,6 +7,16 @@
 #ifndef BITOPOLY
 #define BITOPOLY
 
+// Macro para detener el flujo de ejución después de un turno
+#define ESPERA() \
+    printf("Presione la tecla [ENTER] para CONTINUAR...\n"); \
+    fflush(stdin); \
+    getchar(); // obtenemos un caracter (caracter \n para continuar)
+// Macro para limpiar pantalla usando system("cls") de stdlib.h
+#define CLEAN() system("cls");
+// Macro para un salto de línea
+#define ENTER() printf("\n");
+
 // enumeración para el Tipo de Casilla
 // 0: Inicio, 1: Propiedad, 2: Suerte, 3: Impuesto, 4: Carcel
 typedef enum {
@@ -67,14 +77,14 @@ void imprimir_casilla(int i, Jugador jugadores[]);
 // Función para imprimir el tablero de juego actual
 void imprimir_tablero(Jugador jugadores[]);
 // Función para controlar el flujo del juego
-void ejecutar_juego(Casilla tablero[], Jugador jugadores[], int turno);
+void ejecutar_juego(Casilla tablero[], Jugador jugadores[], int turno, int turnosTotales);
 // Función para mostrar las reglas generales del juego
 void mostrar_reglas();
 // Funciones para el manejo de archivos
 // función para guardar el estado actual de una partida
-void guardar_partida(Casilla tablero[], Jugador jugadores[], int turno);
+void guardar_partida(Casilla tablero[], Jugador jugadores[], int turno, int turnosTotales);
 // función para cargar una partida ya iniciada
-void cargar_partida(Casilla tablero[], Jugador jugadores[], int *turno);
+void cargar_partida(Casilla tablero[], Jugador jugadores[], int *turno, int *turnosTotales);
 // función para guardar el resultado de una partida
 void guardar_ranking(char ganador[], int turnos);
 // función para mostrar el ranking

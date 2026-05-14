@@ -17,7 +17,7 @@ int main(void) {
     Jugador jugadores[NUMJUGADORES]; // 2 jugadores
     inicializar_tablero(tablero); // inicializamos tablero
     inicializar_jugadores(jugadores); // inicializamos jugadores
-    int turno = 0; // el primer turno es del jugador 1
+    int turno = 0, turnosTotales = 0; // el primer turno es del jugador 1
     int option; // opcion
     // menú principal
     do { 
@@ -35,12 +35,12 @@ int main(void) {
             // si decide iniciar una partida nueva
             case 1:
                 capturar_nombres(jugadores); // capturamos los nombres
-                ejecutar_juego(tablero, jugadores, turno); // iniciamos el juego
+                ejecutar_juego(tablero, jugadores, turno, turnosTotales); // iniciamos el juego
                 break;
             case 2:
             // si decide cargar una partida existente 
-                // pasamos turno por referencia para actualizar al turno actual
-                cargar_partida(tablero, jugadores, &turno);
+                // pasamos turno y turnosTotales por referencia para actualizarlos
+                cargar_partida(tablero, jugadores, &turno, &turnosTotales);
                 break;
             case 3:
             // si decide mostrar el ranking histórico de partidas
@@ -57,6 +57,8 @@ int main(void) {
             default:
                 // si no es una opción válida lo indicamos. solicitamos que ingrese de nuevo
                 printf("OPCION NO VÁLIDA. INTENTE DE NUEVO\n");
+                ESPERA();
+                CLEAN();
         }
     } while (option != 5); // mientras la opción sea diferente a salir
     return 0;
