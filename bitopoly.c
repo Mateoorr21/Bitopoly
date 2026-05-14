@@ -123,7 +123,7 @@ void revisar_casilla(Casilla tablero[], Jugador* j, Jugador* otro, int turno){
     }
 }
 
-// función para si la casilla
+// función para si la casilla no tiene propietario
 void casilla_sin_propietario(Casilla tablero[], int turno, Jugador *j) {
     unsigned char compra; // variable que lee si se hace la compra
     printf("LA PROPIEDAD NO TIENE DUEÑO. INFORMACION...\n");
