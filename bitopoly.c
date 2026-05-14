@@ -39,7 +39,7 @@ void capturar_nombres(Jugador jugadores[]) {
 }
 
 // función que define cada casilla
-void inicializar_tablero(Casilla tablero[], int tam){
+void inicializar_tablero(Casilla tablero[]){
     int precio_inicial = 100; // precio de la primer propiedad
     tablero[0].tipo = INICIO;// Posicion 0 es el inicio (casilla 1)
     tablero[10].tipo = CARCEL;// Posicion 10 (casilla 11) es la cárcel y aquí te penalizan
@@ -47,7 +47,7 @@ void inicializar_tablero(Casilla tablero[], int tam){
     tablero[16].tipo = IMPUESTO;// Posicion 16 (casilla 17) te cobran impuestos por un 40% de tu dinero
 
     // Ciclo for que define el resto de casillas con sus propiedades
-    for (int i = 1; i < tam; i++){ 
+    for (int i = 1; i < TAM; i++){ 
         // Si la posicion es la número 10, 8 o 16 saltamos esa iteración
         if(i == 10 || i == 8 || i == 16) continue;
         // De lo contrario definimos sus elementos

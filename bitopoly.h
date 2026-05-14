@@ -44,7 +44,7 @@ typedef struct {
 // Funciones de la Librería bitopoly.h
 // Funciones para el inicio del juego
 void capturar_nombres(Jugador jugadores[]);
-void inicializar_tablero(Casilla tablero[], int tam);
+void inicializar_tablero(Casilla tablero[]);
 void inicializar_jugadores(Jugador jugadores[]);
 // Función para lanzar un dado y obtener número del 1 al 6
 int lanzar_dado();
