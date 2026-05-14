@@ -91,10 +91,10 @@ int tirar_hasta_no_dobles() {
 // función para mover un jugador tantas posiciones
 int mover_jugador(Jugador* j, int pasos){
     // booleano que es verdadero si el jugador completa una vuelta
-    int vuelta = (j->posicion + pasos >= 20) ? 1 : 0;
+    int vueltaCompleta = (j->posicion + pasos >= 20) ? 1 : 0;
     // la posición del jugador es la suma de lo del dado mod 20
     j->posicion = (j->posicion + pasos) % 20; 
-    return vuelta; // devolemos el booleano (posicion ya se guardo)
+    return vueltaCompleta; // devolemos el booleano (posicion ya se guardo)
 }
 
 // función para revisar la casilla en la que se cayo
