@@ -15,7 +15,7 @@ int main(void) {
     srand(time(NULL)); // inicializamos generador de aleatorios
     Casilla tablero[TAM]; // tablero con 20 casillas
     Jugador jugadores[NUMJUGADORES]; // 2 jugadores
-    inicializar_tablero(tablero, TAM); // inicializamos tablero
+    inicializar_tablero(tablero); // inicializamos tablero
     inicializar_jugadores(jugadores); // inicializamos jugadores
     int turno = 0; // el primer turno es del jugador 1
     int option; // opcion
